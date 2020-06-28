@@ -19,7 +19,9 @@ const LaunchType = new GraphQLObjectType({
     launch_year: { type: GraphQLString },
     launch_date_local: { type: GraphQLString },
     launch_success: { type: GraphQLBoolean },
+    details: { type: GraphQLString },
     rocket: { type: RocketType },
+    links: { type: LinkType },
   }),
 });
 
@@ -29,6 +31,16 @@ const RocketType = new GraphQLObjectType({
     rocket_id: { type: GraphQLString },
     rocket_name: { type: GraphQLString },
     rocket_type: { type: GraphQLString },
+  }),
+});
+
+const LinkType = new GraphQLObjectType({
+  name: "Link",
+  fields: () => ({
+    mission_patch: { type: GraphQLString },
+    mission_patch_small: { type: GraphQLString },
+    article_link: { type: GraphQLString },
+    video_link: { type: GraphQLString },
   }),
 });
 
@@ -44,7 +56,7 @@ const RootQuery = new GraphQLObjectType({
           .then((res) => res.data);
       },
     },
-    launche: {
+    launch: {
       type: LaunchType,
       args: {
         flight_number: { type: GraphQLInt },
